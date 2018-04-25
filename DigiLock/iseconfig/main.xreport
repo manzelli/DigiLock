@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2018-04-25T16:02:05</DateModified>
+  <DateModified>2018-04-25T18:01:15</DateModified>
   <ModuleName>main</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
-  <SavedFilePath>X:/Desktop/ec311labs/DigiLock/iseconfig/ASM.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>X:/Desktop/ec311labs/DigiLock\</ImplementationReportsDirectory>
-  <DateInitialized>2018-04-25T15:53:55</DateInitialized>
+  <SavedFilePath>X:/Desktop/ec311labs/DigiLock/iseconfig/main.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>X:/Desktop/ec311labs/DigiLock</ImplementationReportsDirectory>
+  <DateInitialized>2018-04-25T18:01:14</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
  <body>
