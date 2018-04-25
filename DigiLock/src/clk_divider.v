@@ -18,14 +18,14 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module clk_divider(
+module Clk_Divider(
 	input clk_in,
 	input rst,
 	output reg divided_clk
 );
 
 parameter toggle_value = 21'b111111111111111111111;
-	 
+
 reg[20:0] cnt;
 
 always @(posedge clk_in or posedge rst)

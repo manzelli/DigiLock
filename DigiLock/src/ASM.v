@@ -1,12 +1,12 @@
 module ASM (
-	input clk,
-    input rst,
-    input clr,
-    input enter,
-    input change,
-	output reg [5:0] led,
+	output reg [4:0] led,
 	output reg [19:0] ssd,
-    input [3:0] switch
+	input clk,
+	input rst,
+	input clr,
+	input enter,
+	input change,
+	input [3:0] switch
 ); 
 
 /* BUTTON INPUT MAPPING */
@@ -26,15 +26,15 @@ module ASM (
 	parameter state_idle             = 6'b000000;
 	parameter state_get_first_digit  = 6'b000001;
 	parameter state_get_second_digit = 6'b000010;
-	parameter state_get_digit_digit  = 6'b000011;
+	parameter state_get_third_digit  = 6'b000011;
 	parameter state_get_fourth_digit = 6'b000100;
 	parameter state_clear_input      = 6'b000101;
 
 	// state for checking passwd correctness, and intermediate
-	parameter state_check_pwd        = 6'b000101;
+	parameter state_check_passwd     = 6'b000101;
 
 	// state_open and waiting for input
-	parameter state_state_open       = 6'b000110;
+	parameter state_open       = 6'b000110;
 
 	// state set new passwd
 	parameter state_set_passwd       = 6'b001000;
@@ -63,6 +63,7 @@ module ASM (
 	parameter ssd_F       = 5'b01111;
 	parameter ssd_blank   = 5'b10000;
 	parameter ssd_L       = 5'b10001;
+	parameter ssd_d       = 5'b10010;
 	parameter ssd_P       = 5'b10011;
 	parameter ssd_n       = 5'b10100;
 
@@ -71,9 +72,9 @@ module ASM (
 always @ (posedge clk or posedge rst)
 begin
 	// your code goes here
-	if (rst == 1)
+	if (rst == 1) begin
 		current_state <= state_idle;
-		passwd <= 16'b0000000000000000;
+	end
 	else
 		current_state <= next_state;
 end
@@ -81,7 +82,6 @@ end
 /* COMBINATIONAL: STATE TRANSITIONS */
 always @ (*) begin
 	if (current_state == state_idle ) begin
-		passwd[15:0] = 16'b0000000000000000;
 		if (enter == 1) next_state = state_get_first_digit;
 		else            next_state = current_state;
 	end
@@ -102,11 +102,11 @@ always @ (*) begin
 	end
 
 	else if ( current_state == state_get_fourth_digit ) begin
-		if (enter == 1) next_state = check_pwd;
+		if (enter == 1) next_state = state_check_passwd;
 		else            next_state = current_state;
 	end
 
-	else if ( current_state == check_pwd )  begin
+	else if ( current_state == state_check_passwd )  begin
 		if ((passwd ^ in_passwd) > 1) next_state = state_open;
 		else                          next_state = state_idle;
 	end
@@ -127,10 +127,9 @@ always @ (posedge clk or posedge rst) begin
 		in_passwd[15:0] <= 0; // passwd which is taken coming from user, 
 		passwd[15:0]    <= 0; // setting passwd to zero if reset
 	end
-
+ 
 	else 
 		if (current_state == state_idle) begin
-			passwd[15:0] <= 16'b0000000000000000; // Built in reset is 0, when user in state_idle state.
 			// you may need to add extra things here.
 		end
 	
@@ -162,25 +161,25 @@ end
 // Sequential part for outputs; this part is responsible from outputs; i.e. SSD and LEDS
 always @ (posedge clk) begin
 	if (current_state == state_idle) begin
-		ssd <= {C, L, five, d};	//CLSD
+		ssd <= {ssd_C, ssd_L, ssd_five, ssd_d};	//CLSD
 	end
 
 	// the extra zero is for padding since switch inputs are only 4 bits
 	// and the ssd takes 5 bit inputs per display
 	else if (current_state == state_get_first_digit)  begin
-		ssd <= { 0, switch[3:0], blank, blank, blank};
+		ssd <= {1'b0, switch[3:0], ssd_blank, ssd_blank, ssd_blank};
 	end
 
 	else if (current_state == state_get_second_digit) begin
-		ssd <= {blank, 0, switch[3:0], blank, blank};
+		ssd <= {ssd_blank, 1'b0, switch[3:0], ssd_blank, ssd_blank};
 	end
 
 	else if (current_state == state_get_third_digit)  begin
-		ssd <= {blank, blank, 0, switch[3:0], blank};
+		ssd <= {ssd_blank, ssd_blank, 1'b0, switch[3:0], ssd_blank};
 	end
 
 	else if (current_state == state_get_fourth_digit) begin
-		ssd <= {blank, blank,  blank, 0, switch[3:0]};
+		ssd <= {ssd_blank, ssd_blank,  ssd_blank, 1'b0, switch[3:0]};
 	end
 
 	else if (current_state == state_open) begin

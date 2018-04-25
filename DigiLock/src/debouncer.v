@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module debouncer(
+module Debouncer(
 	input 		clk,
 	input 		rst,
 	input 		noisy_in, // port from the push button
