@@ -1,217 +1,193 @@
-module ASM (input clk,
+module ASM (
+	input clk,
     input rst,
     input clr,
-    input ent,
+    input enter,
     input change,
 	output reg [5:0] led,
 	output reg [19:0] ssd,
-    input [3:0] sw); 
+    input [3:0] switch
+); 
 
-    //input rst, // from BTN3
-    //input clr, // from BTN0
-    //input ent, // from BTN2
-    //input change, // BTN1
-//registers
+/* BUTTON INPUT MAPPING */
+    // input rst, // from BTN3
+    // input clr, // from BTN0
+    // input enter, // from BTN2
+    // input change, // BTN1
 
- reg [15:0] password; 
- reg [15:0] inpassword;
- reg [5:0] current_state;
- reg [5:0] next_state;	
+/* REGISTERS */
+	reg [15:0] passwd;
+	reg [15:0] in_passwd;
+	reg [5:0]  current_state;
+	reg [5:0]  next_state;	
 
-// parameters for States, you will need more states obviously
-parameter IDLE = 6'b000000; //idle state 
-parameter GETFIRSTDIGIT = 6'b000001; // get_first_input_state // this is not a must, one can use counter instead of having another step, design choice
-parameter GETSECONDIGIT = 6'b000010; //get_second input state
-parameter GETTHIRDIGIT = 6'b000011; // third digit state
-parameter GETFOURTHDIGIT = 6'b000100; // fourth digit state
-parameter passcheck = 6'b000101; // password digits entered, now check the password
-parameter open = 6'b000110; // open and waiting for input
-// these depend on binary to seg. parameters for output
-parameter zero=5'b00000;
-parameter one=5'b00001;
-parameter two=5'b00010;
-parameter three=5'b00011;
-parameter four=5'b00100;
-parameter five=5'b00101;
-parameter six=5'b00110;
-parameter seven=5'b00111;
-parameter eight=5'b01000;
-parameter nine=5'b01001;
-parameter A=5'b01010;
-parameter B=5'b01011;
-parameter C=5'b01100;
-parameter D=5'b01101;
-parameter E=5'b01110;
-parameter F=5'b01111;
-parameter blank=5'b10000;
-parameter L=5'b10001; // same for L and for other guys, each of them 5 bit. IN ssd module you will provide 20 bit input, each 5 bit will be converted into 7 bit SSD in binary to segment file.
-parameter d=5'b10010;
-parameter P=5'b10011;
-parameter n=5'b10100;
+/* STATE CODE MAPPING */
+	// state_idle state
+	parameter state_idle             = 6'b000000;
+	parameter state_get_first_digit  = 6'b000001;
+	parameter state_get_second_digit = 6'b000010;
+	parameter state_get_digit_digit  = 6'b000011;
+	parameter state_get_fourth_digit = 6'b000100;
+	parameter state_clear_input      = 6'b000101;
+
+	// state for checking passwd correctness, and intermediate
+	parameter state_check_pwd        = 6'b000101;
+
+	// state_open and waiting for input
+	parameter state_state_open       = 6'b000110;
+
+	// state set new passwd
+	parameter state_set_passwd       = 6'b001000;
+	parameter state_set_first_digit  = 6'b001001;
+	parameter state_set_second_digit = 6'b001010;
+	parameter state_set_digit_digit  = 6'b001011;
+	parameter state_set_fourth_digit = 6'b001100;
 
 
-// Sequential part for state transitions (I didn't touch this)
-	always @ (posedge clk or posedge rst)
-	begin
-		// your code goes here
-		if(rst==1)
-			current_state <= IDLE;
-		else
-			current_state <= next_state;
-		
+/* SSD OUTPUT CODE MAPPINGS */
+	parameter ssd_zero    = 5'b00000;
+	parameter ssd_two     = 5'b00010;
+	parameter ssd_one     = 5'b00001;
+	parameter ssd_three   = 5'b00011;
+	parameter ssd_four    = 5'b00100;
+	parameter ssd_five    = 5'b00101;
+	parameter ssd_six     = 5'b00110;
+	parameter ssd_seven   = 5'b00111;
+	parameter ssd_eight   = 5'b01000;
+	parameter ssd_nine    = 5'b01001;
+	parameter ssd_A       = 5'b01010;
+	parameter ssd_B       = 5'b01011;
+	parameter ssd_C       = 5'b01100;
+	parameter ssd_D       = 5'b01101;
+	parameter ssd_E       = 5'b01110;
+	parameter ssd_F       = 5'b01111;
+	parameter ssd_blank   = 5'b10000;
+	parameter ssd_L       = 5'b10001;
+	parameter ssd_P       = 5'b10011;
+	parameter ssd_n       = 5'b10100;
+
+
+/* SEQUENTIAL: STATE TRANSITIONS */
+always @ (posedge clk or posedge rst)
+begin
+	// your code goes here
+	if (rst == 1)
+		current_state <= state_idle;
+		passwd <= 16'b0000000000000000;
+	else
+		current_state <= next_state;
+end
+
+/* COMBINATIONAL: STATE TRANSITIONS */
+always @ (*) begin
+	if (current_state == state_idle ) begin
+		passwd[15:0] = 16'b0000000000000000;
+		if (enter == 1) next_state = state_get_first_digit;
+		else            next_state = current_state;
 	end
 
-// Combinational part - next state definitions
-	always @ (*)
-	begin
-		if(current_state == IDLE)
-		begin
-			assign password[15:0]=16'b0000000000000000;
-			// your code goes here
-			if(ent == 1)
-				next_state = GETFIRSTDIGIT;
-			else 
-				next_state = current_state;
-			
-		end
-
-		else if ( current_state == GETFIRSTDIGIT )
-			 if (ent == 1)
-			 	next_state = GETSECONDIGIT;
-			 else
-			 	next_state = current_state;
-
-		/*
-		you have to complete the rest, in this combinational part, DO NOT ASSIGN VALUES TO OUTPUTS DO NOT ASSIGN VALUES TO REGISTERS
-		just determine the next_state, that is all. password = 0000 -> this should not be there for instance or LED = 1010 this should not be there as well
-
-		else if 
-
-		else if
-
-		*/
-				
-		else if ( current_state == GETSECONDIGIT )
-			 if (ent == 1)
-			 	next_state = GETTHIRDIGIT;
-			 else
-			 	next_state = current_state;
-				
-		else if ( current_state == GETTHIRDIGIT )
-			 if (ent == 1)
-			 	next_state = GETFOURTHDIGIT;
-			 else
-			 	next_state = current_state;
-				
-		else if ( current_state == GETFOURTHDIGIT )
-			 if (ent == 1)
-			 	next_state = passcheck;
-			 else
-			 	next_state = current_state;
-				
-		else if ( current_state == passcheck )
-			 if ((password ^ inpassword) > 1)
-			 	next_state = open;
-			 else
-			 	next_state = IDLE;
-				
-		else if ( current_state == open )
-			 if ((password ^ inpassword) > 1)
-			 	next_state = open;
-			 else
-			 	next_state = IDLE;
-		
-		else
-			next_state = current_state;
-
+	else if ( current_state == state_get_first_digit ) begin
+		if (enter == 1) next_state = state_get_second_digit;
+		else            next_state = current_state;
 	end
 
+	else if ( current_state == state_get_second_digit ) begin
+		if (enter == 1) next_state = state_get_third_digit;
+		else            next_state = current_state;
+	end
+			
+	else if ( current_state == state_get_third_digit )  begin
+		if (enter == 1) next_state = state_get_fourth_digit;
+		else            next_state = current_state;
+	end
 
-// Sequential part for control registers, this part is responsible from assigning control registers or stored values
-	always @ (posedge clk or posedge rst)
-	begin
-		if(rst)
-		begin
-			inpassword[15:0]<=0; // password which is taken coming from user, 
-			password[15:0]<=0; // setting password to zero if reset
+	else if ( current_state == state_get_fourth_digit ) begin
+		if (enter == 1) next_state = check_pwd;
+		else            next_state = current_state;
+	end
+
+	else if ( current_state == check_pwd )  begin
+		if ((passwd ^ in_passwd) > 1) next_state = state_open;
+		else                          next_state = state_idle;
+	end
+
+	// TODO: this is not correct, open goes to two possible states
+	else if ( current_state == state_open ) begin
+		if ((passwd ^ in_passwd) > 1) next_state = state_open;
+		else                          next_state = state_idle;
+	end
+
+	else next_state = current_state;
+end
+
+
+// SEQUENTIAL: CONTROL REGISTER ASSIGNMENTS
+always @ (posedge clk or posedge rst) begin
+	if (rst) begin
+		in_passwd[15:0] <= 0; // passwd which is taken coming from user, 
+		passwd[15:0]    <= 0; // setting passwd to zero if reset
+	end
+
+	else 
+		if (current_state == state_idle) begin
+			passwd[15:0] <= 16'b0000000000000000; // Built in reset is 0, when user in state_idle state.
+			// you may need to add extra things here.
+		end
+	
+		else if (current_state == state_get_first_digit) begin
+			if (enter == 1) in_passwd[15:12] <= switch[3:0];
 		end
 
-		else 
-			if(current_state == IDLE)
-			begin
-			 	password[15:0] <= 16'b0000000000000000; // Built in reset is 0, when user in IDLE state.
-				 // you may need to add extra things here.
-			end
+		else if (current_state == state_get_second_digit) begin
+			if (enter == 1) in_passwd[11:8]  <= switch[3:0];
+		end
 		
-			else if(current_state == GETFIRSTDIGIT)
-			begin
-				if(ent==1)
-					inpassword[15:12]<=sw[3:0]; // inpassword is the password entered by user, first 4 digin will be equal to current switch values
-			end
-
-			else if (current_state == GETSECONDIGIT)
-			begin
-
-				if(ent==1)
-					inpassword[11:8]<=sw[3:0]; // inpassword is the password entered by user, second 4 digit will be equal to current switch values
-				
-			end
+		else if (current_state == state_get_third_digit) begin
+			if (enter == 1) in_passwd[7:3]   <= switch[3:0];
 			
-			else if (current_state == GETTHIRDIGIT)
-			begin
+		end
+		
+		else if (current_state == state_get_fourth_digit) begin		
+			if (enter == 1) in_passwd[3:0]   <= switch[3:0];
+		end
 
-				if(ent==1)
-					inpassword[7:3]<=sw[3:0]; // inpassword is the password entered by user, second 4 digit will be equal to current switch values
-				
-			end
-			
-			else if (current_state == GETFOURTHDIGIT)
-			begin
-
-				if(ent==1)
-					inpassword[3:0]<=sw[3:0]; // inpassword is the password entered by user, second 4 digit will be equal to current switch values
-				
-			end
-			
-			else if (current_state == passcheck)
-			begin
-
-				if(ent==1)
-					inpassword[3:0]<=sw[3:0]; // inpassword is the password entered by user, second 4 digit will be equal to current switch values
-				
-			end
-			
-		/*
-		Complete the rest of ASM chart, in this section, you are supposed to set the values for control registers, stored registers(password for instance)
+	/*
+		Complete the rest of ASM chart, in this section, you are supposed to set the values for control registers, stored registers(passwd for instance)
 		number of trials, counter values etc... 
-		*/
+	*/
 
-	end
+end
 
 
 // Sequential part for outputs; this part is responsible from outputs; i.e. SSD and LEDS
-	always @(posedge clk)
-	begin
-
-		if(current_state == IDLE)
-		begin
+always @ (posedge clk) begin
+	if (current_state == state_idle) begin
 		ssd <= {C, L, five, d};	//CLSD
-		end
-
-		else if(current_state == GETFIRSTDIGIT)
-		begin
-		ssd <= { 0,sw[3:0], blank, blank, blank};	// you should modify this part slightly to blink it with 1Hz. The 0 is at the beginning is to complete 4bit SW values to 5 bit.
-		end
-
-		else if(current_state == GETSECONDIGIT)
-		begin
-		ssd <= { tire , 0,sw[3:0], blank, blank};	// you should modify this part slightly to blink it with 1Hz. 0 after tire is to complete 4 bit sw to 5 bit. Padding 4 bit sw with 0 in other words.	
-		end
-		/*
-		 You need more else if obviously
-
-		*/
 	end
 
+	// the extra zero is for padding since switch inputs are only 4 bits
+	// and the ssd takes 5 bit inputs per display
+	else if (current_state == state_get_first_digit)  begin
+		ssd <= { 0, switch[3:0], blank, blank, blank};
+	end
 
+	else if (current_state == state_get_second_digit) begin
+		ssd <= {blank, 0, switch[3:0], blank, blank};
+	end
+
+	else if (current_state == state_get_third_digit)  begin
+		ssd <= {blank, blank, 0, switch[3:0], blank};
+	end
+
+	else if (current_state == state_get_fourth_digit) begin
+		ssd <= {blank, blank,  blank, 0, switch[3:0]};
+	end
+
+	else if (current_state == state_open) begin
+		ssd <= {ssd_zero, ssd_P,  ssd_E, ssd_n};
+	end
+	
+	else ssd <= {ssd_blank, ssd_blank, ssd_blank, ssd_blank};
+	// TODO: add more screen prints
+end
 endmodule
