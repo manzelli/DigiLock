@@ -2,7 +2,7 @@
 
 module binary_to_segment(
 	output reg [6:0] seven_out,
-   input      [4:0] binary_in
+   input       [4:0] binary_in
 );
 
 // add more cases here for the other letters on the display
