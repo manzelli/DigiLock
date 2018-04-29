@@ -5,8 +5,6 @@
 			<Port Id="0" Dir="OUT"/>
 			<Port Id="1" Dir="OUT"/>
 			<Port Id="2" Dir="OUT"/>
-			<Port Id="3" Dir="OUT"/>
-			<Port Id="4" Dir="OUT"/>
 		</Bus>
 		<Bus Id="AN_out">
 			<Port Id="0" Dir="OUT"/>

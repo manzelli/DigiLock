@@ -1,16 +1,16 @@
 Release 14.2 - xst P.28xd (nt64)
 Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
---> Parameter TMPDIR set to X:/Desktop/ec311labs/DigiLock/xst/projnav.tmp
+--> Parameter TMPDIR set to X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/xst/projnav.tmp
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.13 secs
+Total CPU time to Xst completion: 0.11 secs
  
---> Parameter xsthdpdir set to X:/Desktop/ec311labs/DigiLock/xst
+--> Parameter xsthdpdir set to X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.17 secs
+Total CPU time to Xst completion: 0.12 secs
  
 --> Reading design: ASM.prj
 
@@ -39,12 +39,12 @@ TABLE OF CONTENTS
 =========================================================================
 *                          HDL Parsing                                  *
 =========================================================================
-Analyzing Verilog file "\\ad\eng\users\t\h\thakkarv\Desktop\ec311labs\DigiLock\src\ASM.v" into library work
+Analyzing Verilog file "\\ad\eng\users\m\a\manzelli\EC311\FinalProj\DigiLock\DigiLock-master\DigiLock\src\ASM.v" into library work
 Parsing module <ASM>.
 
 
-Total REAL time to Xst completion: 4.00 secs
-Total CPU time to Xst completion: 3.89 secs
+Total REAL time to Xst completion: 3.00 secs
+Total CPU time to Xst completion: 3.58 secs
  
 --> 
 

@@ -1,10 +1,10 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
-// Engineer: 
+// Engineer: Rachel Manzelli & Vijay Thakkar
 // 
-// Create Date:    15:39:19 04/25/2018 
-// Design Name: 
+// Create Date: 15:39:19 04/25/2018 
+// Design Name:  
 // Module Name:    main 
 // Project Name: 
 // Target Devices: 
@@ -19,7 +19,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module main(
-	output [4:0] led,
+	output [2:0] led,
 	output [3:0] AN_out,
 	output [6:0] CN_out,
 	input clk, rst, clear, enter, change,
@@ -30,7 +30,10 @@ module main(
 
 	// Instantiate clock driver
 	Clk_Divider slow_clk_driver(clk, rst, slow_clk);
-	Clk_Divider fast_clk_driver(clk, rst, fast_as_fuk_boi);
+	fast_clock fast_clk_driver(clk, rst, fast_as_fuk_boi);
+	
+	// SSD, might want to hardcode stuff here for testing
+	SSD_Driver ssd_driver(fast_as_fuk_boi, wire_ssd, AN_out, CN_out);
 
 	// Debounce button inputs
 	Debouncer debounce_clr(slow_clk, rst, clear, deb_clear);
@@ -39,7 +42,4 @@ module main(
 
 	// Instantiate ASM
 	ASM asm(led, wire_ssd, slow_clk, rst, deb_clear, deb_enter, deb_change, switch);
-
-	// SSD, might want to hardcode stuff here for testing
-	SSD_Driver ssd_driver(fast_as_fuk_boi, hardcode, AN_out, CN_out);
 endmodule

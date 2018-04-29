@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2018-04-25T18:01:15</DateModified>
+  <DateModified>2018-04-27T02:36:20</DateModified>
   <ModuleName>main</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
-  <SavedFilePath>X:/Desktop/ec311labs/DigiLock/iseconfig/main.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>X:/Desktop/ec311labs/DigiLock</ImplementationReportsDirectory>
+  <SavedFilePath>X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/iseconfig/main.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock\</ImplementationReportsDirectory>
   <DateInitialized>2018-04-25T18:01:14</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

@@ -38,11 +38,10 @@ module SSD_Driver(
 	// end
 
 	// tranlate to 7 LED values
-	binary_to_segment disp0(wire_disp0_out, in[4:0]);
-	binary_to_segment disp1(wire_disp1_out, in[9:5]);
-	binary_to_segment disp2(wire_disp2_out, in[14:10]);
-	binary_to_segment disp3(wire_disp3_out, in[19:15]);
-
+	bintochar disp0(in[4:0], wire_disp0_out);
+	bintochar disp1(in[9:5], wire_disp1_out);
+	bintochar disp2(in[14:10], wire_disp2_out);
+	bintochar disp3(in[19:15], wire_disp3_out);
 
 	// Also count value is operating in very high frequency? Think about how to fix it!
 	always @ (posedge clk) begin

@@ -19,30 +19,37 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module Clk_Divider(
-	input clk_in,
+input clk_in,
 	input rst,
 	output reg divided_clk
-);
+    );
+	 
+	 
+parameter toggle_value = 21'b111101000010010000000;
 
-parameter toggle_value = 21'b111111111111111111111;
-
+	 
 reg[20:0] cnt;
 
-always @(posedge clk_in or posedge rst)
+always@(posedge clk_in or posedge rst)
 begin
-	if (rst == 1) begin
+	if (rst==1) begin
 		cnt <= 0;
 		divided_clk <= 0;
 	end
 	else begin
-		if (cnt == toggle_value) begin
+		if (cnt==toggle_value) begin
 			cnt <= 0;
 			divided_clk <= ~divided_clk;
 		end
 		else begin
-			cnt <= cnt + 1;
+			cnt <= cnt +1;
 			divided_clk <= divided_clk;		
 		end
 	end
+
 end
+			  
+	
+
+
 endmodule

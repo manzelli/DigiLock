@@ -1,5 +1,5 @@
-set -tmpdir "X:/Desktop/ec311labs/DigiLock/xst/projnav.tmp"
-set -xsthdpdir "X:/Desktop/ec311labs/DigiLock/xst"
+set -tmpdir "X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/xst/projnav.tmp"
+set -xsthdpdir "X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/xst"
 run -compileonly yes
 -p xc6slx16-3-csg324
 -top ASM

@@ -1,20 +1,20 @@
 #-----------------------------------------------------------
 # PlanAhead v14.2 (64-bit)
 # Build 194362 by xbuild on Fri Jul 20 18:52:11 MDT 2012
-# Start of session at: Wed Apr 25 17:23:29 2018
-# Process ID: 3920
-# Log file: X:/Desktop/ec311labs/DigiLock/planAhead_run_1/planAhead.log
-# Journal file: X:/Desktop/ec311labs/DigiLock/planAhead_run_1/planAhead.jou
+# Start of session at: Fri Apr 27 02:47:28 2018
+# Process ID: 5852
+# Log file: X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/planAhead_run_1/planAhead.log
+# Journal file: X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/planAhead_run_1/planAhead.jou
 #-----------------------------------------------------------
 INFO: [Common 17-78] Attempting to get a license: PlanAhead
 INFO: [Common 17-290] Got license for PlanAhead
-INFO: [Common 17-86] Your PlanAhead license expires in -236 day(s)
+INFO: [Common 17-86] Your PlanAhead license expires in -238 day(s)
 INFO: [Device 21-36] Loading parts and site information from C:/Xilinx/14.2/ISE_DS/PlanAhead/data/parts/arch.xml
 Parsing RTL primitives file [C:/Xilinx/14.2/ISE_DS/PlanAhead/data/parts/xilinx/rtl/prims/rtl_prims.xml]
 Finished parsing RTL primitives file [C:/Xilinx/14.2/ISE_DS/PlanAhead/data/parts/xilinx/rtl/prims/rtl_prims.xml]
 start_gui
-source X:/Desktop/ec311labs/DigiLock/pa.fromHdl.tcl
-# create_project -name DigiLock -dir "X:/Desktop/ec311labs/DigiLock/planAhead_run_1" -part xc6slx16csg324-3
+source X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/pa.fromHdl.tcl
+# create_project -name DigiLock -dir "X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/planAhead_run_1" -part xc6slx16csg324-3
 Parsing template File [C:/Xilinx/14.2/ISE_DS/ISE/data/projnav/templates/verilog.xml].
 Finished parsing template File [C:/Xilinx/14.2/ISE_DS/ISE/data/projnav/templates/verilog.xml].
 Parsing template File [C:/Xilinx/14.2/ISE_DS/ISE/data/projnav/templates/vhdl.xml].
@@ -24,7 +24,7 @@ Finished parsing template File [C:/Xilinx/14.2/ISE_DS/ISE/data/projnav/templates
 # set_param project.pinAheadLayout yes
 # set srcset [get_property srcset [current_run -impl]]
 # set_property target_constrs_file "main.ucf" [current_fileset -constrset]
-Adding file 'X:/Desktop/ec311labs/DigiLock/main.ucf' to fileset 'constrs_1'
+Adding file 'X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/main.ucf' to fileset 'constrs_1'
 # set hdlfile [add_files [list {src/binary_to_segment.v}]]
 # set_property file_type Verilog $hdlfile
 # set_property library work $hdlfile
@@ -40,7 +40,10 @@ Adding file 'X:/Desktop/ec311labs/DigiLock/main.ucf' to fileset 'constrs_1'
 # set hdlfile [add_files [list {src/ASM.v}]]
 # set_property file_type Verilog $hdlfile
 # set_property library work $hdlfile
-# set hdlfile [add_files [list {main.v}]]
+# set hdlfile [add_files [list {fast_clock.v}]]
+# set_property file_type Verilog $hdlfile
+# set_property library work $hdlfile
+# set hdlfile [add_files [list {src/main.v}]]
 # set_property file_type Verilog $hdlfile
 # set_property library work $hdlfile
 # set_property top main $srcset
@@ -48,12 +51,13 @@ Adding file 'X:/Desktop/ec311labs/DigiLock/main.ucf' to fileset 'constrs_1'
 # open_rtl_design -part xc6slx16csg324-3
 Using Verific elaboration
 Parsing VHDL file "C:/Xilinx/14.2/ISE_DS/PlanAhead/data/parts/xilinx/rtl/lib/synplify/synattr.vhd" into library synplify
-Analyzing Verilog file "X:/Desktop/ec311labs/DigiLock/src/binary_to_segment.v" into library work
-Analyzing Verilog file "X:/Desktop/ec311labs/DigiLock/src/seven_segment.v" into library work
-Analyzing Verilog file "X:/Desktop/ec311labs/DigiLock/src/debouncer.v" into library work
-Analyzing Verilog file "X:/Desktop/ec311labs/DigiLock/src/clk_divider.v" into library work
-Analyzing Verilog file "X:/Desktop/ec311labs/DigiLock/src/ASM.v" into library work
-Analyzing Verilog file "X:/Desktop/ec311labs/DigiLock/main.v" into library work
+Analyzing Verilog file "X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/src/binary_to_segment.v" into library work
+Analyzing Verilog file "X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/src/seven_segment.v" into library work
+Analyzing Verilog file "X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/src/debouncer.v" into library work
+Analyzing Verilog file "X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/src/clk_divider.v" into library work
+Analyzing Verilog file "X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/src/ASM.v" into library work
+Analyzing Verilog file "X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/fast_clock.v" into library work
+Analyzing Verilog file "X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/src/main.v" into library work
 Loading clock regions from C:/Xilinx/14.2/ISE_DS/PlanAhead/data\parts/xilinx/spartan6/spartan6lx/xc6slx16/ClockRegion.xml
 Loading clock buffers from C:/Xilinx/14.2/ISE_DS/PlanAhead/data\parts/xilinx/spartan6/spartan6lx/xc6slx16/ClockBuffers.xml
 Loading package pin functions from C:/Xilinx/14.2/ISE_DS/PlanAhead/data\parts/xilinx/spartan6/PinFunctions.xml...
@@ -61,50 +65,17 @@ Loading package from C:/Xilinx/14.2/ISE_DS/PlanAhead/data\parts/xilinx/spartan6/
 Loading io standards from C:/Xilinx/14.2/ISE_DS/PlanAhead/data\./parts/xilinx/spartan6/IOStandards.xml
 Loading device configuration modes from C:/Xilinx/14.2/ISE_DS/PlanAhead/data\parts/xilinx/spartan6/ConfigModes.xml
 Loading list of drcs for the architecture : C:/Xilinx/14.2/ISE_DS/PlanAhead/data\./parts/xilinx/spartan6/drc.xml
-Parsing UCF File [X:/Desktop/ec311labs/DigiLock/main.ucf]
-Finished Parsing UCF File [X:/Desktop/ec311labs/DigiLock/main.ucf]
+Parsing UCF File [X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/main.ucf]
+Finished Parsing UCF File [X:/EC311/FinalProj/DigiLock/DigiLock-master/DigiLock/main.ucf]
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Phase 0 | Netlist Checksum: fed3a7c5
-open_rtl_design: Time (s): elapsed = 00:00:06 . Memory (MB): peak = 576.035 ; gain = 164.488
+Phase 0 | Netlist Checksum: 77be92db
+open_rtl_design: Time (s): elapsed = 00:00:06 . Memory (MB): peak = 573.980 ; gain = 151.941
 startgroup
-set_property package_pin N16 [get_ports {AN_out[0]}]
-endgroup
-startgroup
-set_property package_pin N15 [get_ports {AN_out[1]}]
-endgroup
-startgroup
-set_property package_pin P18 [get_ports {AN_out[2]}]
-endgroup
-startgroup
-set_property package_pin P17 [get_ports {AN_out[3]}]
-endgroup
-startgroup
-set_property package_pin T17 [get_ports {CN_out[0]}]
-endgroup
-startgroup
-set_property package_pin T18 [get_ports {CN_out[1]}]
-endgroup
-startgroup
-set_property package_pin U17 [get_ports {CN_out[2]}]
-endgroup
-startgroup
-set_property package_pin U18 [get_ports {CN_out[3]}]
-endgroup
-startgroup
-set_property package_pin M14 [get_ports {CN_out[4]}]
-endgroup
-startgroup
-set_property package_pin N14 [get_ports {CN_out[5]}]
-endgroup
-startgroup
-set_property package_pin L14 [get_ports {CN_out[6]}]
+set_property package_pin C4 [get_ports rst]
 endgroup
 save_design
-ERROR: [PlanAhead 12-106] *** Exception: java.lang.InterruptedException (See X:/Desktop/ec311labs/DigiLock\planAhead_pid3920.debug)
-ERROR: [PlanAhead 12-106] *** Exception: java.util.ConcurrentModificationException (See X:/Desktop/ec311labs/DigiLock\planAhead_pid3920.debug)
-ERROR: [PlanAhead 12-106] *** Exception: java.util.ConcurrentModificationException (See X:/Desktop/ec311labs/DigiLock\planAhead_pid3920.debug)
 exit
 INFO: [Common 17-206] Exiting PlanAhead...
 INFO: [Common 17-83] Releasing license: PlanAhead
