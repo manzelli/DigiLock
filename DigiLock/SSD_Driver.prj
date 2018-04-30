@@ -1,0 +1,2 @@
+verilog work "src/binary_to_segment.v"
+verilog work "src/seven_segment.v"

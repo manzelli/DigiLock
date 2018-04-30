@@ -1,0 +1,7 @@
+verilog work "src/binary_to_segment.v"
+verilog work "src/seven_segment.v"
+verilog work "src/debouncer.v"
+verilog work "src/clk_divider.v"
+verilog work "src/ASM.v"
+verilog work "fast_clock.v"
+verilog work "src/main.v"
