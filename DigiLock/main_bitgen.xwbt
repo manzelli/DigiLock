@@ -1,8 +1,0 @@
-INTSTYLE=ise
-INFILE=X:\EC311\FinalProj\DigiLock\DigiLock-master\DigiLock\main.ncd
-OUTFILE=X:\EC311\FinalProj\DigiLock\DigiLock-master\DigiLock\main.bit
-FAMILY=Spartan6
-PART=xc6slx16-3csg324
-WORKINGDIR=X:\EC311\FinalProj\DigiLock\DigiLock-master\DigiLock
-LICENSE=WebPack
-USER_INFO=211078688_0_0_150
